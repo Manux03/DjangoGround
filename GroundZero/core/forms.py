@@ -1,5 +1,5 @@
 from django import forms
-from .models import Imagen, TipoUsuario, Usuario
+from .models import Imagen, TipoUsuario, Usuario, Acceso
 
 class ImagenForm(forms.ModelForm):
     class Meta:
@@ -17,3 +17,12 @@ class FormularioUsuario (forms.ModelForm):
             'contraseña':'Contraseña'
         }
         
+class FormularioAcceso (forms.ModelForm):
+    class Meta:
+        model = Acceso
+        fields = ('correoacceso','passwordacceso')
+        labels = {
+            'correoacceso':'Correo electronico',
+            'passwordacceso':'Contraseña',
+
+        }
