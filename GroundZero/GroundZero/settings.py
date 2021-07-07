@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'widget_tweaks',
+    'crispy_forms'
 ]
+crispy_template_pack = 'bootstrap5'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -81,9 +83,9 @@ WSGI_APPLICATION = 'GroundZero.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'GroundZero',
-        'USER': 'GroundZero',
-        'PASSWORD' : '12345',
+        'NAME': 'duoc',
+        'USER': 'duoc',
+        'PASSWORD' : 'pipeware1',
         'HOST': 'localhost',
         'PORT': '3306',
     }

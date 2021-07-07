@@ -1,12 +1,19 @@
 from django import forms
-from django.forms import ModelForm
-from .models import Imagen
-from django.contrib.auth.forms import UserCreationForm
+from .models import Imagen, TipoUsuario, Usuario
 
-class ImagenForm(ModelForm):
+class ImagenForm(forms.ModelForm):
     class Meta:
         model = Imagen
         fields = ['idImagen', 'ruta']
 
-class CustomUserCreationForm(UserCreationForm):
-    pass
+
+class FormularioUsuario (forms.ModelForm):
+    class Meta:
+        model = Usuario
+        fields = ('ncompleto','correo','contraseña')
+        labels = {
+            'ncompleto':'Nombre completo',
+            'correo':'Correo electronico',
+            'contraseña':'Contraseña'
+        }
+        

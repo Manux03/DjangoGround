@@ -5,5 +5,14 @@ class Imagen(models.Model):
     idImagen = models.AutoField(primary_key=True, verbose_name='Id de las imagenes')
     ruta = models.CharField(max_length=50, verbose_name='Ruta de la imagen')
 
-    def __str__(self) :
-        return self.idImagen
+
+class TipoUsuario (models.Model):
+    idtipousuario = models.AutoField(primary_key= True, verbose_name ='idtipousuario')
+    ntipousuario = models.CharField (max_length= 50,verbose_name='TipoUsuario')
+
+class Usuario (models.Model):
+    ncompleto = models.CharField(max_length = 100, verbose_name = 'NombreCompleto')
+    correo = models.EmailField(max_length = 500, verbose_name ='Correo')
+    contraseña = models.CharField(max_length= 20, verbose_name = 'Contraseña')
+    tipoUsuario = models.ForeignKey(TipoUsuario,on_delete = models.CASCADE)
+    idusuario = models.AutoField(primary_key=True,verbose_name='Idusuario')
