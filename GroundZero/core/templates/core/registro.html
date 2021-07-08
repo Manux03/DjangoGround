@@ -21,14 +21,23 @@
                 <div class="card">
                     <div class="card-body">
                         <h2>GROUND ZERO</h2>
+                        <hr>
                         {% block content %}
                         <form action="" method="post">
                             {% csrf_token %}
-                            {{ form|crispy }}
-                            
+                            <label>Nombre Completo</label>
+                            {{ form.ncompleto | add_class:"form-control"}}
+
+                            <label>Correo</label>
+                            {{ form.correo | add_class:"form-control"}}
+
+                            <label>Contraseña</label>
+                            {{ form.contraseña | add_class:"form-control"}}
+                            <br>
+                            <br>
                             <input type="submit" value="Registrar" class="btn btn-success float-right">
-                            <a href="{% url 'index' %}">Ir al home</a>
-                            <a href="{% url 'registro' %}">Iniciar Sesión</a>
+                            <a href="{% url 'index' %}">Ir al home</a> |
+                            <a href="{% url 'login' %}">Iniciar Sesión</a>
 
                         </form>
                         {% endblock content %}

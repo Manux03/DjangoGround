@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+
 class Imagen(models.Model):
     idImagen = models.AutoField(primary_key=True, verbose_name='Id de las imagenes')
     ruta = models.CharField(max_length=50, verbose_name='Ruta de la imagen')
@@ -12,6 +13,7 @@ class TipoUsuario (models.Model):
 
     def __str__ (self):
         return self.ntipousuario
+        
 class Usuario (models.Model):
     ncompleto = models.CharField(max_length = 100, verbose_name = 'NombreCompleto')
     correo = models.EmailField(max_length = 500, verbose_name ='Correo')
@@ -20,7 +22,7 @@ class Usuario (models.Model):
     idusuario = models.AutoField(primary_key=True,verbose_name='Idusuario')
 
     def __str__ (self):
-        return self.ncompleto
+        return self.correo
 
 class Acceso (models.Model):
     correoacceso = models.EmailField(primary_key= True, verbose_name = 'Correo')

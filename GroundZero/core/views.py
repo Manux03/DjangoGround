@@ -1,11 +1,48 @@
 from django.shortcuts import redirect, render, reverse
-from .forms import FormularioUsuario, FormularioAcceso
+from .forms import FormularioUsuario, FormularioAcceso, FormularioModifica
 from django.contrib.auth import authenticate, login
 from .models import Usuario
 
 # Create your views here.
 def index(request):
     return render(request, 'core/index.html')
+
+"""def registro(request,id = 0):
+    if request.method == "GET":
+        if id==0:
+            form = FormularioUsuario()
+        else:
+            usuario = Usuario.objects.get(pk=id) entre puto
+            form = FormularioUsuario(instace=usuario)
+        return render (request,"core/registro.html",{'form':form})
+    else:
+        form = FormularioUsuario(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('index'))"""
+
+def modifica(request, id=0):
+    if request.method == "GET":
+        if id == 0:
+            form = FormularioUsuario()
+        else:
+            usuario = Usuario.objects.get(pk=id)
+            form = FormularioModifica(instance=usuario)
+        return render(request, "core/modifica.html", {'form': form})
+    else:
+        if id == 0:
+            form = FormularioModifica(request.POST)
+        else:
+            usuario = Usuario.objects.get(pk=id)
+            form = FormularioModifica(request.POST,instance= usuario)
+        if form.is_valid():
+            form.save()
+        return redirect('lista')
+
+def eliminar(request,id):
+    usuario = Usuario.objects.get(pk=id)
+    usuario.delete()
+    return redirect('lista')
 
 def registro(request):
     if request.method == "GET":
@@ -44,3 +81,20 @@ def login (request):
     else:
         form = FormularioUsuario()
         return render (request, 'core/registro.html', {'form':form})
+
+
+def lista (request):
+    contexto = {'usuarioslista': Usuario.objects.all()}
+    return render(request, 'core/listausuarios.html',contexto)
+
+
+def listausuarios(request):
+    datos = {
+        'form':FormularioUsuario()
+    }
+    if request.method == 'POST':
+        formulario = FormularioUsuario(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            datos['mensaje'] = "Guardado Correctamente"
+    return render(request,'core/listausuarios', datos)

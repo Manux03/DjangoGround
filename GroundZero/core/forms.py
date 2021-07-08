@@ -16,6 +16,17 @@ class FormularioUsuario (forms.ModelForm):
             'correo':'Correo electronico',
             'contraseña':'Contraseña'
         }
+
+class FormularioModifica (forms.ModelForm):
+    class Meta:
+        model = Usuario
+        fields = ('ncompleto','correo','contraseña','tipoUsuario')
+        labels = {
+            'ncompleto':'Nombre completo',
+            'correo':'Correo electronico',
+            'contraseña':'Contraseña',
+            'tipoUsuario': 'Tipo de Usuario'
+        }
         
 class FormularioAcceso (forms.ModelForm):
     class Meta:
