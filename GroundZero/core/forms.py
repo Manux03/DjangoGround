@@ -1,20 +1,38 @@
-from django import forms
-from .models import Imagen, TipoUsuario, Usuario, Acceso
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
+from .models import CustomUser
+
+
+class CustomUserCreationForm(UserCreationForm):
+
+    class Meta:
+        model = CustomUser
+        fields = ('email',)
+
+
+class CustomUserChangeForm(UserChangeForm):
+
+    class Meta:
+        model = CustomUser
+        fields = ('email',)
+
+"""
 class ImagenForm(forms.ModelForm):
     class Meta:
         model = Imagen
         fields = ['idImagen', 'ruta']
 
 
+
 class FormularioUsuario (forms.ModelForm):
     class Meta:
         model = Usuario
-        fields = ('ncompleto','correo','contraseña')
+        fields = ('nusuario','ncompleto','correo','contraseña')
         labels = {
-            'ncompleto':'Nombre completo',
-            'correo':'Correo electronico',
-            'contraseña':'Contraseña'
+            'nusuario':'Nombre Usuario',
+            'ncompleto':'Nombre Completo',
+            'correo':'Correo Electronico',
+            'contraseña': 'Contraseña'
         }
 
 class FormularioModifica (forms.ModelForm):
@@ -37,3 +55,4 @@ class FormularioAcceso (forms.ModelForm):
             'passwordacceso':'Contraseña',
 
         }
+"""

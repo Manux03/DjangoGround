@@ -83,9 +83,9 @@ WSGI_APPLICATION = 'GroundZero.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'duoc',
-        'USER': 'duoc',
-        'PASSWORD' : 'pipeware1',
+        'NAME': 'prueba2',
+        'USER': 'prueba2',
+        'PASSWORD' : 'prueba2',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -134,3 +134,4 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'core.CustomUser'

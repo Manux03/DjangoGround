@@ -25,6 +25,10 @@
                         {% block content %}
                         <form action="" method="post">
                             {% csrf_token %}
+                            <label>Nombre Usuario</label>
+                            {{ form.nusuario | add_class:"form-control"}}
+
+
                             <label>Nombre Completo</label>
                             {{ form.ncompleto | add_class:"form-control"}}
 

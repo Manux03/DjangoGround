@@ -7,19 +7,19 @@ from .models import Usuario
 def index(request):
     return render(request, 'core/index.html')
 
-"""def registro(request,id = 0):
+def registro(request,id = 0):
     if request.method == "GET":
         if id==0:
             form = FormularioUsuario()
         else:
-            usuario = Usuario.objects.get(pk=id) entre puto
+            usuario = Usuario.objects.get(pk=id)
             form = FormularioUsuario(instace=usuario)
         return render (request,"core/registro.html",{'form':form})
     else:
         form = FormularioUsuario(request.POST)
         if form.is_valid():
             form.save()
-            return redirect(reverse('index'))"""
+            return redirect(reverse('index'))
 
 def modifica(request, id=0):
     if request.method == "GET":
@@ -52,7 +52,7 @@ def registro(request):
         form = FormularioUsuario(request.POST)
         if form.is_valid():
             form.save()
-            return redirect(reverse('index'))
+            return redirect(reverse('core/index.html'))
 
 def login (request):
     if request.method == "GET":
