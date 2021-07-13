@@ -25,34 +25,13 @@
                         {% block content %}
                         <form action="" method="post">
                             {% csrf_token %}
-
-
-                            <label>Nombres</label>
-                            {{ form.nombres | add_class:"form-control"}}
-
-                            
-                            <label>Apellidos</label>
-                            {{ form.apellidos | add_class:"form-control"}}
-
-
-                            <label>Correo</label>
-                            {{ form.email | add_class:"form-control"}}
-
-                            {% if user.is_superuser %}
-
-                            <label>Es administrador</label>
-                            {{ form.usuario_administrador}}
-
-                            {% else %}
-
-                            {% endif %}
-
-
+                            <label>Nombre Categoria Items</label>
+                            {{ form.tipoitems | add_class:"form-control"}}
                             <br>
                             <br>
                             <input type="submit" value="Registrar" class="btn btn-success float-right">
                             <a href="{% url 'index' %}">Ir al home</a> |
-                            <a href="{% url 'login' %}">Iniciar SesiÃ³n</a>
+                            <a href="{% url 'login' %}">Iniciar Sesión</a>
 
                         </form>
                         {% endblock content %}

@@ -23,36 +23,26 @@
                         <h2>GROUND ZERO</h2>
                         <hr>
                         {% block content %}
-                        <form action="" method="post">
+                        <form action="" method="post" enctype = 'multipart/form-data'>
                             {% csrf_token %}
-
-
-                            <label>Nombres</label>
-                            {{ form.nombres | add_class:"form-control"}}
-
+                            <label>Modificacion de imagen</label>
+                            <br>
+                            {{ form.nombreitems | add_class:"form-control"}}
+                            <br>
+                            <label>Contenido a modificar</label>
+                            {{ form.descripcionitems | add_class:"form-control"}}
+                            <br>
+                            <label>Contenido a modificar</label>
+                            {{ form.subir_imagen | add_class:"form-control"}}
+                            <br>
+                            <label>Contenido a modificar</label>
+                            {{ form.tipoitems | add_class:"form-control"}}
+                            <br>
+                            <input type="submit" value="Modificar" class="btn btn-success float-right">
+                            <br>
+                            <br>
+                            <a href="{% url 'imagenp' %}">Ir a crud de las imagenes</a>
                             
-                            <label>Apellidos</label>
-                            {{ form.apellidos | add_class:"form-control"}}
-
-
-                            <label>Correo</label>
-                            {{ form.email | add_class:"form-control"}}
-
-                            {% if user.is_superuser %}
-
-                            <label>Es administrador</label>
-                            {{ form.usuario_administrador}}
-
-                            {% else %}
-
-                            {% endif %}
-
-
-                            <br>
-                            <br>
-                            <input type="submit" value="Registrar" class="btn btn-success float-right">
-                            <a href="{% url 'index' %}">Ir al home</a> |
-                            <a href="{% url 'login' %}">Iniciar SesiÃ³n</a>
 
                         </form>
                         {% endblock content %}

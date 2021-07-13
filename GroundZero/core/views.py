@@ -1,7 +1,15 @@
-from django.shortcuts import redirect, render, reverse
-from .forms import FormularioUsuario, FormularioAcceso, FormularioModifica,ImagenForm
-from django.contrib.auth import authenticate, login
-from .models import Usuario, Imagen, Carrusel
+from django.shortcuts import render, redirect, reverse
+from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
+from django.views.decorators.csrf import csrf_protect
+from django.views.generic.edit import FormView
+from django.contrib.auth import login,logout
+from django.http import HttpResponseRedirect
+from .forms import FormularioLogin, FormularioUsuario, FormularioModifica
+from django.views.generic import TemplateView, CreateView
+from .models import Usuario
+from Administracion.models import Imagen
 
 # Create your views here.
 def index(request):
@@ -11,19 +19,36 @@ def index(request):
     }
     return render(request, 'core/index.html',context)
 
-def registro(request,id = 0):
-    if request.method == "GET":
-        if id==0:
-            form = FormularioUsuario()
+
+class Inicio(TemplateView):
+    template_name = 'index.html'
+
+class Login(FormView):
+    template_name = 'core/login.html'
+    form_class = FormularioLogin
+    success_url = reverse_lazy('index')
+
+    @method_decorator(csrf_protect)
+    @method_decorator(never_cache)
+    def dispatch(self,request,*args,**kwargs):
+        if request.user.is_authenticated:
+            return HttpResponseRedirect(self.get_success_url())
         else:
-            usuario = Usuario.objects.get(pk=id)
-            form = FormularioUsuario(instace=usuario)
-        return render (request,"core/registro.html",{'form':form})
-    else:
-        form = FormularioUsuario(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect(reverse('index'))
+            return super(Login,self).dispatch(request,*args,**kwargs)
+
+    def form_valid(self,form):
+        login(self.request,form.get_user())
+        return super(Login,self).form_valid(form)
+
+def logoutUsuario(request):
+    logout(request)
+    return HttpResponseRedirect('/accounts/login/')
+
+class RegistrarUsuario(CreateView):
+    model = Usuario
+    form_class = FormularioUsuario
+    template_name = 'core/registro.html'
+    success_url = reverse_lazy('login')
 
 def modifica(request, id=0):
     if request.method == "GET":
@@ -58,33 +83,6 @@ def registro(request):
             form.save()
             return redirect(reverse('core/index.html'))
 
-def login (request):
-    if request.method == "GET":
-        form = FormularioAcceso()
-        return render (request,"core/login.html",{'form':form})
-    elif request.method == 'POST':
-        bdd = Usuario.objects.all()
-        form = FormularioAcceso(request.POST or None,request.FILES or None)
-        if form.is_valid():
-            correoi = form.cleaned_data.get("correoacceso")
-            passwordi = form.cleaned_data.get("passwordacceso")
-            for i in bdd:
-                correo = i.correo
-                password = i.contraseña
-
-                if correoi == correo:
-                    if passwordi == password:
-                        contexto = {'Usuario': Usuario.objects.filter(correo = correo)}
-                        return redirect (reverse('index'),contexto)
-                    else:
-                        return redirect('login')
-                else:
-                    return redirect('login')
-        else:
-            return redirect ('login')
-    else:
-        form = FormularioUsuario()
-        return render (request, 'core/registro.html', {'form':form})
 
 
 def lista (request):
@@ -111,44 +109,3 @@ def artista(request):
 
 def contactanos(request):
     return render(request, 'core/contactanos.html')
-
-def Modificaimagen(request,id=0):
-    if request.method == "GET":
-        if id == 0:
-            form = ImagenForm()
-        else:
-            imagen = Imagen.objects.get(pk=id)
-            form = ImagenForm(instance=imagen)
-        return render(request, "core/modificaimagen.html", {'form': form})
-    else:
-        if id == 0:
-            form = ImagenForm(request.POST)
-        else:
-            imagen = Imagen.objects.get(pk=id)
-            form = ImagenForm(request.POST or None,request.FILES or None, instance = imagen)
-        if form.is_valid():
-            form.save()
-        return redirect('imagenp')
-
-
-def Agregarimagen(request):
-    if request.method == "GET":
-        form = ImagenForm()
-        return render(request, "core/Agregarimagen.html", {'form': form})
-    else:
-        form = ImagenForm(request.POST or None,request.FILES or None)
-        if form.is_valid():
-            form.save()
-        return redirect('imagenp')
-
-def imagenp(request):
-    listaimagen = {'listaimagenes': Imagen.objects.all()}
-    return render(request, 'core/crudimagen.html',listaimagen)
-
-def eliminarimagen(request,id):
-    imagen = Imagen.objects.get(pk=id)
-    imagen.delete()
-    return redirect('imagenp')
-
-def quienesSomos(request):
-    return render(request, 'core/quienesSomos.html')

@@ -20,36 +20,38 @@
     <table class= "table table-borderless">
         <thead class = "border-bottom font-weight-bold">
             <tr>
-                <td>Nombre Completo</td>
+                <td>Usuario</td>
+                <td>Nombres</td>
+                <td>Apellidos</td>
                 <td>Correo electro</td>
-                <td>Tipo Usuario</td>
-                <td>Editar | Eliminar</td>
+                <td>Administrador</td>
+                <td>Operaciones</td>
             </tr> 
         </thead>
         <tbody>
             {% for usuario in usuarioslista %}
 
-                {%  if usuario == null %}
-                <h1>hola</h1>
+                {%  if usuario.usuario_superuser%}
                 {% else %}
                     <tr>
-                        <td>{{usuario.ncompleto}}</td>
-                        <td>{{usuario.correo}}</td>
-                        <td>{{usuario.tipoUsuario}}</td>
+                        <td>{{usuario.username}}</td>
+                        <td>{{usuario.nombres}}</td>
+                        <td>{{usuario.apellidos}}</td>
+                        <td>{{usuario.email}}</td>
+                        <td>{{usuario.usuario_administrador}}</td>
                         <td>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <a href="{% url 'employee_update' usuario.idusuario %}">
+                                    <a href="{% url 'employee_update' usuario.id%}">
                                         <div class="btn btn-success">Editar</div>
                                     </a>
                                 </div>
                                 <div class="col-md-2">
-                                    <form action="{% url 'employee_delete' usuario.idusuario %}" method="post">
+                                    <form action="{% url 'employee_delete' usuario.id %}" method="post">
                                         {% csrf_token %}
                                         <button type = "submit" class="btn btn-danger btn-block">Eliminar</button>
                                     </form>
                                 </div>
-
 
                             </div>
                             

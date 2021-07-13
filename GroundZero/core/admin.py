@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import Imagen, Carrusel
+from .models import Usuario
 
-admin.site.register(Imagen)
-admin.site.register(Carrusel)
+admin.site.register(Usuario)
 
