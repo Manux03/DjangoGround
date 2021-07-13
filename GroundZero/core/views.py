@@ -1,11 +1,15 @@
 from django.shortcuts import redirect, render, reverse
 from .forms import FormularioUsuario, FormularioAcceso, FormularioModifica,ImagenForm
 from django.contrib.auth import authenticate, login
-from .models import Usuario, Imagen
+from .models import Usuario, Imagen, Carrusel
 
 # Create your views here.
 def index(request):
-    return render(request, 'core/index.html')
+    obj = Imagen.objects.all()
+    context = {
+        'obj':obj
+    }
+    return render(request, 'core/index.html',context)
 
 def registro(request,id = 0):
     if request.method == "GET":
@@ -108,7 +112,7 @@ def artista(request):
 def contactanos(request):
     return render(request, 'core/contactanos.html')
 
-def agregaimagen(request,id=0):
+def Modificaimagen(request,id=0):
     if request.method == "GET":
         if id == 0:
             form = ImagenForm()
@@ -124,8 +128,18 @@ def agregaimagen(request,id=0):
             form = ImagenForm(request.POST or None,request.FILES or None, instance = imagen)
         if form.is_valid():
             form.save()
-        return redirect('core/Agregarimagen')
+        return redirect('imagenp')
 
+
+def Agregarimagen(request):
+    if request.method == "GET":
+        form = ImagenForm()
+        return render(request, "core/Agregarimagen.html", {'form': form})
+    else:
+        form = ImagenForm(request.POST or None,request.FILES or None)
+        if form.is_valid():
+            form.save()
+        return redirect('imagenp')
 
 def imagenp(request):
     listaimagen = {'listaimagenes': Imagen.objects.all()}

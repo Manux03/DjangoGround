@@ -74,43 +74,22 @@
                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-current="true"class="active" aria-label="Slide 3"></button>
                 </div>
                 <div class="carousel-inner">
-                    <div class="carousel-item active" data-bs-interval="5000">
+                {% for object in obj %}
+                    <div class="carousel-item {% if forloop.counter0 == 0%} active {% endif %} " data-bs-interval="5000">
                         
-                        <img src="{% static 'core/img/carrusel_miguel_angel.jpg' %}" width="200" height="800"class="d-block w-100" alt="Replica David de Miguel Angel" href="#">
+                        <img src={{object.subir_imagen.url}} width="200" height="800"class="d-block w-100" alt="Replica David de Miguel Angel" href="#">
                         <rect width="100%" height="100%" fill="#777"></rect>
                         <div class="container">
                             <div class="carousel-caption text-start">
-                                <h1>David de Miguel Angel</h1>
+                                <h1>{{object.contenido}}</h1>
                                 <div class="ctm">
-                                    Réplica moldeada por las manos de nuestro artista Manuel Arias.
+                                    {{object.sub_title}}
                                 </div>
                                 <p><a class="btn btn-lg btn-light" href="#">Explorar producto</a></p>
                             </div>
                         </div>
                     </div>
-                    <div class="carousel-item" data-bs-interval="5000">
-                        <img src="{% static 'core/img/carrusel_mona_lisa.jpg' %}" width="200" height="800" class="d-block w-100" alt="Pintura La mona lisa">
-                        <div class="container">
-                            <div class="carousel-caption text-start">
-                                <h1>Mona Lisa</h1>
-                                <div class="ctm">
-                                    Réplica pintada por Felipe Herrera.
-                                </div>
-                                <Réplica><a class="btn btn-lg btn-light" href="#">Explorar producto</a></Réplica>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item" data-bs-interval="5000">
-                        <img src="{% static 'core/img/carrusel_el_grito.jpg' %}" width="200" height="800" class="d-block w-100" alt="El grito">
-                        <div class="container">
-                            <div class="carousel-caption text-start">
-                                <h1>El Grito</h1>
-                                <div class="ctm">
-                                    Pintura replicada por nuestro artista El loco rene
-                                </div>
-                                <p><a class="btn btn-lg btn-light" href="#">Explorar producto</a></p>
-                            </div>
-                        </div>
+                    {% endfor %}
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>

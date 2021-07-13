@@ -3,7 +3,7 @@ from .models import Imagen, TipoUsuario, Usuario, Acceso
 class ImagenForm(ModelForm):
     class Meta:
         model = Imagen
-        fields = ['idImagen', 'subir_imagen', 'contenido']
+        fields = ['idImagen', 'subir_imagen', 'contenido','sub_title']
 
 
 

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index, registro, login, lista, listausuarios, modifica,eliminar, categoria, artista, contactanos, imagenp, agregaimagen, quienesSomos
+from .views import index, registro, login, lista, listausuarios, modifica,eliminar, categoria, artista, contactanos, imagenp, Modificaimagen, quienesSomos, Agregarimagen, eliminarimagen
 
 urlpatterns = [
     path('index/', index,name='index'),
@@ -13,8 +13,10 @@ urlpatterns = [
     path('artista/', artista,name='artista'),
     path('contactanos', contactanos,name='contactanos'),
     path('crudimagen/', imagenp,name='imagenp'),
-    path('imagen/<int:id>/', agregaimagen,name='editar_imagen'),
-    path('Agregarimagen/', agregaimagen,name='agregarimagen'),
+    path('imagen/<int:id>/', Modificaimagen,name='editar_imagen'),
+    path('AgregarImagen/', Agregarimagen,name='agregar_imagen'),
     path('quienesSomos/', quienesSomos, name='quienesSomos'),
+    path('eliminar/<int:id>/', eliminarimagen,name='borrar')
+
 ]
    
