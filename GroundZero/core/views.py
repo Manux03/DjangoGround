@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render, reverse
-from .forms import FormularioUsuario, FormularioAcceso, FormularioModifica
+from .forms import FormularioUsuario, FormularioAcceso, FormularioModifica,ImagenForm
 from django.contrib.auth import authenticate, login
-from .models import Usuario
+from .models import Usuario, Imagen
 
 # Create your views here.
 def index(request):
@@ -98,3 +98,43 @@ def listausuarios(request):
             formulario.save()
             datos['mensaje'] = "Guardado Correctamente"
     return render(request,'core/listausuarios', datos)
+
+def categoria(request):
+    return render(request, 'core/categoria.html')
+
+def artista(request):
+    return render(request, 'core/artista.html')
+
+def contactanos(request):
+    return render(request, 'core/contactanos.html')
+
+def agregaimagen(request,id=0):
+    if request.method == "GET":
+        if id == 0:
+            form = ImagenForm()
+        else:
+            imagen = Imagen.objects.get(pk=id)
+            form = ImagenForm(instance=imagen)
+        return render(request, "core/modificaimagen.html", {'form': form})
+    else:
+        if id == 0:
+            form = ImagenForm(request.POST)
+        else:
+            imagen = Imagen.objects.get(pk=id)
+            form = ImagenForm(request.POST or None,request.FILES or None, instance = imagen)
+        if form.is_valid():
+            form.save()
+        return redirect('core/Agregarimagen')
+
+
+def imagenp(request):
+    listaimagen = {'listaimagenes': Imagen.objects.all()}
+    return render(request, 'core/crudimagen.html',listaimagen)
+
+def eliminarimagen(request,id):
+    imagen = Imagen.objects.get(pk=id)
+    imagen.delete()
+    return redirect('imagenp')
+
+def quienesSomos(request):
+    return render(request, 'core/quienesSomos.html')

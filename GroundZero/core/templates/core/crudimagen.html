@@ -20,39 +20,41 @@
     <table class= "table table-borderless">
         <thead class = "border-bottom font-weight-bold">
             <tr>
-                <td>Nombre Completo</td>
-                <td>Correo electro</td>
-                <td>Tipo Usuario</td>
+                <td>Id imagen</td>
+                <td>Ruta imagen</td>
+                <td>Contenido</td>
                 <td>Editar | Eliminar</td>
             </tr> 
         </thead>
         <tbody>
-            {% for usuario in usuarioslista %}
+            {% for Imagen in listaimagenes %}
 
-                {%  if usuario == null %}
+                {%  if Imagen == null %}
                 <h1>hola</h1>
                 {% else %}
                     <tr>
-                        <td>{{usuario.ncompleto}}</td>
-                        <td>{{usuario.correo}}</td>
-                        <td>{{usuario.tipoUsuario}}</td>
-                        <td>
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <a href="{% url 'employee_update' usuario.idusuario %}">
-                                        <div class="btn btn-success">Editar</div>
+                        <td>{{Imagen.idImagen}}</td>
+                        <td>{{Imagen.subir_imagen}}</td>
+                        <td>{{Imagen.contenido}}</td>
+                        <td>                            
+                                <form action="" method="post" enctype = 'multipart/form-data'>
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <a href="{% url 'editar_imagen' Imagen.idImagen %}">
+                                                <div class="btn btn-success">Editar</div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-2">
+                                    <button type = "submit" class="btn btn-danger btn-block">Eliminar</button>
+                                    <a href="{% url 'agregarimagen' %}">
+                                        <button class="btn btn-lg" >Agregar una imagen</button>
                                     </a>
-                                </div>
-                                <div class="col-md-2">
-                                    <form action="{% url 'employee_delete' usuario.idusuario %}" method="post">
-                                        {% csrf_token %}
-                                        <button type = "submit" class="btn btn-danger btn-block">Eliminar</button>
-                                    </form>
-                                </div>
-
-
+                                </form>
                             </div>
-                            
+
+
+                        </div>
                         </td>
                     </tr>
                 {% endif %}
