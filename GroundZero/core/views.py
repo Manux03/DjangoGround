@@ -18,10 +18,8 @@ def index(request):
         'obj':obj
     }
     return render(request, 'core/index.html',context)
-
-
 class Inicio(TemplateView):
-    template_name = 'index.html'
+    template_name = 'core/index.html'
 
 class Login(FormView):
     template_name = 'core/login.html'
@@ -109,3 +107,6 @@ def artista(request):
 
 def contactanos(request):
     return render(request, 'core/contactanos.html')
+
+def quienesSomos(request):
+    return render(request, 'core/quienesSomos.html')

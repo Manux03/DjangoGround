@@ -25,23 +25,8 @@
                         {% block content %}
                         <form action="" method="post">
                             {% csrf_token %}
-
-                            <label>Nombre Completo</label>
-                            {{ form.nombres | add_class:"form-control"}}
-
+                            {{ form }}
                             
-                            <label>Nombre Apellidos</label>
-                            {{ form.apellidos | add_class:"form-control"}}
-
-
-                            <label>Correo</label>
-                            {{ form.email | add_class:"form-control"}}
-
-                            <label>Contraseña</label>
-                            {{ form.password1 | add_class:"form-control"}}
-
-                            <label>Repetir Contraseña</label>
-                            {{ form.password2 | add_class:"form-control"}}
 
                             <br>
                             <br>

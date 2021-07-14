@@ -35,7 +35,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="toggleMobileMenu">
                     <ul class="navbar-nav text-center">
-                        <li class="nav-item"><a href="" class="nav-link">Quienes somos</a></li>
+                        <li class="nav-item"><a href="{% url 'quienesSomos'%}" class="nav-link">Quienes somos</a></li>
                         <li class="nav-item"><a href="{% url 'categoria' %}" class="nav-link">Categorias</a></li>
                         <li class="nav-item"><a href="{% url 'artista' %}" class="nav-link">Artistas</a></li>
                         <li class="nav-item"><a href="{% url 'contactanos' %}" class="nav-link">Contactanos</a></li>
@@ -43,6 +43,10 @@
                         {% if user.is_authenticated %}
                             <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Cerrar Sesion</a></li>
                             <li class="nav-item"><a href="{% url 'registro' %}" class="nav-link">@{{ user.username }}</a></li>
+                            {% if user.is_superuser %}
+                                <li class="nav-item"><a href="{% url 'lista' %}" class="nav-link">Administrar Usuarios</a></li>
+                                <li class="nav-item"><a href="{% url 'imagenp' %}" class="nav-link">Administrar Imagenes</a></li>
+                            {% endif %}
                         {% else %}
                             <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Iniciar Sesion</a></li>
                             <li class="nav-item"><a href="{% url 'registro' %}" class="nav-link">Registrate</a></li>
@@ -52,10 +56,6 @@
                                     <div class="form-outline">
                                     <input type="search" id="form1" class="form-control" />
                                     </div>
-                                    <button type="button" >
-                                        <img src="https://w7.pngwing.com/pngs/698/650/png-transparent-computer-icons-magnifying-glass-see-blue-detective-blog.png" width="40" height="30"alt="lupa"/>
-                                    
-                                    </button>
                                 </div>
                             </li>
                         <li> <script type='text/javascript' src="{% static 'core/js/clima.js' %}"></script></li>
@@ -67,40 +67,29 @@
     
     <!--Carrusel-->
         <div class="fondo">
-            <id id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-current="true"class="active" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-current="true"class="active" aria-label="Slide 3"></button>
-                </div>
+            <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li  data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+                    <li  data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+                    <li  data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+                </ol>
                 <div class="carousel-inner">
-                {% for object in obj %}
-                    <div class="carousel-item {% if forloop.counter0 == 0%} active {% endif %} " data-bs-interval="5000">
-                        
-                        <img src={{object.subir_imagen.url}} width="200" height="800"class="d-block w-100" alt="Replica David de Miguel Angel" href="#">
-                        <rect width="100%" height="100%" fill="#777"></rect>
+                    {% for object in obj %}
+                    <div class="carousel-item {% if forloop.counter0 == 0%} active {% endif %} ">                        
+                        <img src="{{object.imagenp.url}}" style="height: 585px;"class="img-fluid d-block w-100" alt="...">
                         <div class="container">
                             <div class="carousel-caption text-start">
                                 <h1>{{object.contenido}}</h1>
                                 <div class="ctm">
-                                    {{object.sub_title}}
+                                {{object.sub_title}}
                                 </div>
                                 <p><a class="btn btn-lg btn-light" href="#">Explorar producto</a></p>
                             </div>
                         </div>
                     </div>
                     {% endfor %}
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
                 </div>
-            </id>
+            </div>
         </div>
     
         

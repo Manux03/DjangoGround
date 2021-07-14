@@ -31,13 +31,7 @@
                         {% block content %}
                         <form action="" method="post" enctype = 'multipart/form-data'>
                             {% csrf_token %}
-                            <label>Agregar una nueva imagen</label>
-                            <br>
-                            {{ form.subir_imagen | add_class:"form-control"}}
-                            <br>
-                            <label>Contenido a agregar</label>
-                            {{ form.contenido | add_class:"form-control"}}
-                            <br>
+                            {{ form }}
                             <input type="submit" value="Agregar" class="btn btn-success float-right">
                             <br>
                             <br>
